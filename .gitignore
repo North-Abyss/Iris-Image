@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+pyrightconfig.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+*.csv
+*.h5
+*.pkl
+*.pt
+*.pth
+!data/.gitkeep
+
+# Outputs
+outputs/*
+!outputs/.gitkeep
+
+# Models
+models/*
+!models/.gitkeep
+!src/models/history.json
+
+# Environment
+.env
+.env.local
+
+# Documentation (Private for IRIS)
+docs/
+

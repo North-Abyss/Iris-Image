@@ -1,0 +1,84 @@
+"""
+=============================================================================
+Designed and Engineered by: Yuvanesh KS (Alias: North-Abyss)
+GitHub: https://github.com/North-Abyss
+License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike)
+
+Core Innovation: Q-Ternary (2³ → 3²) Medical Data Compression & VQC Entanglement
+=============================================================================
+"""
+from sklearn.svm import SVC
+from sklearn.calibration import CalibratedClassifierCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.exceptions import ConvergenceWarning
+import warnings
+import xgboost as xgb
+
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
+
+class SVMBaseline:
+    def __init__(self, random_state=42):
+        base_svm = SVC(kernel='rbf', random_state=random_state)
+        self.model = CalibratedClassifierCV(estimator=base_svm, ensemble=False)
+        self.name = "SVM (RBF)"
+        
+    def fit(self, X, y):
+        self.model.fit(X, y)
+        
+    def predict(self, X):
+        return self.model.predict(X)
+        
+    def predict_proba(self, X):
+        return self.model.predict_proba(X)
+
+class RandomForestBaseline:
+    def __init__(self, n_estimators=100, random_state=42):
+        self.model = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
+        self.name = "Random Forest"
+        
+    def fit(self, X, y):
+        self.model.fit(X, y)
+        
+    def predict(self, X):
+        return self.model.predict(X)
+        
+    def predict_proba(self, X):
+        return self.model.predict_proba(X)
+
+class XGBoostBaseline:
+    def __init__(self, random_state=42):
+        self.model = xgb.XGBClassifier(eval_metric='logloss', random_state=random_state)
+        self.name = "XGBoost"
+        
+    def fit(self, X, y):
+        self.model.fit(X, y)
+        
+    def predict(self, X):
+        return self.model.predict(X)
+        
+    def predict_proba(self, X):
+        return self.model.predict_proba(X)
+
+class MLPBaseline:
+    def __init__(self, random_state=42):
+        self.model = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=2000, random_state=random_state)
+        self.name = "MLP (Neural Network)"
+        
+    def fit(self, X, y):
+        self.model.fit(X, y)
+        
+    def predict(self, X):
+        return self.model.predict(X)
+        
+    def predict_proba(self, X):
+        return self.model.predict_proba(X)
+
+def get_all_baselines():
+    """Returns a list of all classical baseline models."""
+    return [
+        SVMBaseline(),
+        RandomForestBaseline(),
+        XGBoostBaseline(),
+        MLPBaseline()
+    ]

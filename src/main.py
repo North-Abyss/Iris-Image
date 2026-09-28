@@ -1,0 +1,253 @@
+"""
+=============================================================================
+Designed and Engineered by: Yuvanesh KS (Alias: North-Abyss)
+GitHub: https://github.com/North-Abyss
+License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike)
+
+Core Innovation: Q-Ternary (2³ → 3²) Medical Data Compression & VQC Entanglement
+=============================================================================
+"""
+import argparse
+import os
+import joblib
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import time
+from tqdm import tqdm
+from data.loader import load_csv_dataset, load_mnist_binary_dataset
+from data.preprocessor import Preprocessor
+from data.feature_selector import FeatureSelector
+from quantum.qutrit_model import QutritClassifier
+from classical.baselines import get_all_baselines
+from evaluation.metrics import calculate_metrics
+from evaluation.visualizer import Visualizer
+from explainability.xai_engine import XAIEngine
+from api import app
+
+def main():
+    parser = argparse.ArgumentParser(description="Hybrid Quantum ML Engine for MedTech")
+    parser.add_argument("--dataset-path", type=str, required=True, help="Path to the CSV dataset")
+    parser.add_argument("--run-name", type=str, default="Custom Run", help="Name of the run")
+    parser.add_argument("--n-features", type=int, default=12, help="Number of features after PCA/MI (must be multiple of 3)")
+    parser.add_argument("--n-layers", type=int, default=3, help="Number of layers in Quantum Neural Network")
+    parser.add_argument("--epochs", type=int, default=50, help="Training epochs for QNN")
+    parser.add_argument("--classical-only", action="store_true", help="Skip quantum training, run classical only")
+    parser.add_argument("--start-api", action="store_true", help="Start the Flask API after training")
+    parser.add_argument("--max-ram", type=float, default=6.0, help="Maximum RAM limit in GB before halting training")
+    parser.add_argument("--run-timestamp", type=str, default=None, help="Timestamp ISO string passed from backend")
+    
+    args = parser.parse_args()
+    
+    print("===============================================")
+    print("🚀 Starting QMLPlatform 🚀")
+    print(f"📊 Dataset: {args.run_name} ({args.dataset_path})")
+    print(f"🎯 Target Features: {args.n_features}")
+    print("===============================================\n")
+
+    # 1. Load Data
+    print("--- 📥 1. Loading Data ---")
+    if args.dataset_path.lower() == "mnist":
+        bundle = load_mnist_binary_dataset(n_samples=500, img_size=(6, 4))
+    else:
+        bundle = load_csv_dataset(args.dataset_path, dataset_name=args.run_name)
+    
+    print(f"✅ Loaded {bundle.dataset_name}: {bundle.X_train.shape[0]} train, {bundle.X_test.shape[0]} test samples.")
+
+    # 2. Feature Selection
+    print("\n--- 🔍 2. Feature Selection (Mutual Information) ---")
+    if args.dataset_path.lower() == "mnist":
+        print("Skipping Mutual Information selection for Direct Pixel Encoding.")
+        bundle_selected = bundle
+        selector = None # Define as None to avoid errors later
+    else:
+        selector = FeatureSelector(method='mutual_info', n_features=args.n_features)
+        bundle_selected = selector.fit_transform(bundle)
+        print(f"✅ Selected features: {bundle_selected.X_train.shape[1]}")
+
+    # 3. Preprocessing (Impute, Scale, Binarize, Compress)
+    print("\n--- ⚛️ 3. Preprocessing & Q-Ternary Compression ---")
+    preprocessor = Preprocessor()
+    bundle_compressed = preprocessor.fit_transform(bundle_selected)
+    print(f"📉 Original dimension: {bundle_selected.X_train.shape[1]} bits")
+    print(f"📉 Compressed dimension: {bundle_compressed.X_train.shape[1]} trits")
+
+    # 4. Train Classical Baselines
+    print("\n--- 🖥️ 4. Training Classical Baselines ---")
+    baselines = get_all_baselines()
+    classical_results = {}
+    classical_models_trained = {}
+    for model in baselines:
+        start_time = time.time()
+        model.fit(bundle_selected.X_train, bundle_selected.y_train)
+        y_pred = model.predict(bundle_selected.X_test)
+        y_prob = model.predict_proba(bundle_selected.X_test)[:, 1] if hasattr(model, 'predict_proba') else None
+        
+        metrics = calculate_metrics(bundle_selected.y_test, y_pred, y_prob)
+        classical_results[model.name] = {"metrics": metrics, "y_prob": y_prob}
+        classical_models_trained[model.name] = model
+        print(f"✅ {model.name} Accuracy: {metrics['Accuracy']:.2%} | F1: {metrics['F1']:.2%} | Time: {time.time()-start_time:.2f}s")
+
+    quantum_model_trained = None
+    if not args.classical_only:
+        # 5. Train Quantum Engine
+        print("\n--- ⚛️ 5. Training Quantum Engine (VQC) ---")
+        n_wires = bundle_compressed.X_train.shape[1]
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"⚙️ Using device: {device}")
+        
+        model = QutritClassifier(n_wires=n_wires, n_layers=args.n_layers).to(device)
+        criterion = nn.BCELoss()
+        optimizer = optim.Adam(model.parameters(), lr=0.01)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
+        
+        import psutil
+        import gc
+        import os
+        from torch.utils.data import DataLoader, TensorDataset
+        
+        X_train_t = torch.tensor(bundle_compressed.X_train, dtype=torch.float32)
+        y_train_t = torch.tensor(bundle_compressed.y_train, dtype=torch.float32)
+        X_test_t = torch.tensor(bundle_compressed.X_test, dtype=torch.float32).to(device)
+        
+        dataset = TensorDataset(X_train_t, y_train_t)
+        dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
+        
+        process = psutil.Process(os.getpid())
+        MAX_MEM_GB = args.max_ram
+        OVERLOAD_MEM_GB = args.max_ram + 1.0
+        
+        losses = []
+        epoch_iterator = tqdm(range(args.epochs), desc="⚛️ Training Q-Ternary VQC", unit="epoch", dynamic_ncols=True)
+        for epoch in epoch_iterator:
+            model.train()
+            epoch_loss = 0.0
+            outputs, loss, batch_X, batch_y = None, None, None, None
+            for batch_X, batch_y in dataloader:
+                batch_X = batch_X.to(device)
+                batch_y = batch_y.to(device)
+                
+                optimizer.zero_grad()
+                outputs = model(batch_X)
+                loss = criterion(outputs.to(torch.float32), batch_y.to(torch.float32))
+                loss.backward()
+                optimizer.step()
+                epoch_loss += loss.item() * batch_X.size(0)
+                
+            avg_loss = epoch_loss / len(dataset)
+            losses.append(avg_loss)
+            
+            # Memory Profiling & GC
+            del outputs, loss, batch_X, batch_y
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                
+            mem_gb = process.memory_info().rss / (1024 ** 3)
+            
+            if mem_gb > OVERLOAD_MEM_GB:
+                epoch_iterator.write(f"🚨 CRITICAL WARNING: Memory overloaded at {mem_gb:.2f} GB. Halting training safely.")
+                break
+            elif mem_gb > MAX_MEM_GB:
+                epoch_iterator.write(f"⚠️ WARNING: Memory usage high ({mem_gb:.2f} GB). Close to limit.")
+                
+            # Update progress bar postfix with current loss and memory
+            current_lr = optimizer.param_groups[0]['lr']
+            epoch_iterator.set_postfix({"Loss": f"{avg_loss:.4f}", "LR": f"{current_lr:.5f}", "RAM(GB)": f"{mem_gb:.2f}"})
+            
+            # Step the LR scheduler
+            scheduler.step(avg_loss)
+                
+            if (epoch + 1) % 10 == 0 or epoch == 0:
+                epoch_iterator.write(f"\n🔄 Epoch {epoch+1}/{args.epochs} | Loss: {avg_loss:.4f} | LR: {current_lr:.5f} | Mem: {mem_gb:.2f} GB\n")
+                
+        # Evaluate Quantum
+        model.eval()
+        with torch.no_grad():
+            q_probs = model(X_test_t).cpu().numpy()
+            q_preds = (q_probs >= 0.5).astype(int)
+            
+        q_metrics = calculate_metrics(bundle_compressed.y_test, q_preds, q_probs)
+        print(f"\n✅ Quantum Model Accuracy: {q_metrics['Accuracy']:.2%} | F1: {q_metrics['F1']:.2%}")
+        quantum_model_trained = model
+
+        import datetime
+        if args.run_timestamp:
+            dt = datetime.datetime.fromisoformat(args.run_timestamp)
+            timestamp = dt.strftime("%Y%m%d_%H%M%S")
+        else:
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        run_dir = f"models/run_{timestamp}"
+        graphs_dir = f"{run_dir}/graphs"
+        os.makedirs(graphs_dir, exist_ok=True)
+        
+        # 6. Save Evaluation Data for On-Demand Graph Generation
+        print("\n--- 📈 6. Saving Evaluation Data (Graphs on demand) ---")
+        best_classical = baselines[0]
+        c_preds = best_classical.predict(bundle_selected.X_test)
+        
+        roc_dict = {name: res["y_prob"] for name, res in classical_results.items()}
+        roc_dict["Qutrit VQC"] = q_probs
+        
+        eval_data = {
+            "losses": losses,
+            "original_dim": bundle_selected.X_train.shape[1],
+            "n_wires": n_wires,
+            "roc_dict": roc_dict,
+            "y_test": bundle_compressed.y_test,
+            "q_preds": q_preds,
+            "c_preds": c_preds,
+            "best_classical_name": best_classical.name,
+            "X_train_selected": bundle_selected.X_train,
+            "X_test_selected": bundle_selected.X_test,
+            "feature_names": bundle_selected.feature_names
+        }
+        joblib.dump(eval_data, f"{run_dir}/eval_data.pkl")
+        print(f"✅ Saved Evaluation Data to {run_dir}/eval_data.pkl (Generate graphs from UI).")
+
+        # 8. Save Trained Models
+        print("\n--- 💾 8. Saving Trained Models to Disk ---")
+        
+        # Save Quantum Model Weights
+        torch.save(quantum_model_trained.state_dict(), f"{run_dir}/qutrit_vqc_weights.pt")
+        print(f"✅ Saved Quantum VQC weights to {run_dir}/qutrit_vqc_weights.pt")
+        
+        # Save Classical Baselines
+        for c_model_name, c_model_obj in classical_models_trained.items():
+            # Clean filename by replacing spaces with underscores
+            safe_name = c_model_name.replace(" ", "_").lower()
+            joblib.dump(c_model_obj.model, f"{run_dir}/{safe_name}_baseline.pkl")
+            print(f"✅ Saved Classical {c_model_name} to {run_dir}/{safe_name}_baseline.pkl")
+            
+        # Save Preprocessor and Feature Selector
+        joblib.dump(preprocessor, f"{run_dir}/preprocessor.pkl")
+        if selector:
+            joblib.dump(selector, f"{run_dir}/feature_selector.pkl")
+        joblib.dump(bundle_selected.feature_names, f"{run_dir}/feature_names.pkl")
+        print(f"✅ Saved Preprocessor and Feature Selector to {run_dir}/")
+        
+        # Update latest symlink
+        try:
+            if os.path.exists("models/latest") or os.path.islink("models/latest"):
+                os.remove("models/latest")
+            os.symlink(f"run_{timestamp}", "models/latest")
+        except Exception as e:
+            print(f"⚠️ Could not create 'latest' symlink: {e}")
+
+    # 9. API Startup
+    if args.start_api:
+        print("\n--- 🌐 9. Starting Flask API ---")
+        app.preprocessor = preprocessor
+        app.feature_selector = selector
+        app.quantum_model = quantum_model_trained
+        app.classical_baselines = classical_models_trained
+        app.feature_names = bundle_selected.feature_names
+        app.app.run(host='0.0.0.0', port=5000, debug=False)
+        
+    print("\n===============================================")
+    print("🎉 Pipeline Execution Complete.")
+    print("===============================================")
+
+if __name__ == "__main__":
+    main()

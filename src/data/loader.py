@@ -1,0 +1,134 @@
+import pandas as pd
+import numpy as np
+from dataclasses import dataclass
+from typing import Tuple, List, Optional
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+@dataclass
+class DataBundle:
+    """Standardized container for loaded datasets."""
+    X_train: np.ndarray
+    X_test: np.ndarray
+    y_train: np.ndarray
+    y_test: np.ndarray
+    feature_names: List[str]
+    dataset_name: str
+
+def load_wisconsin_breast_cancer(test_size: float = 0.2, random_state: int = 42) -> DataBundle:
+    """
+    Loads the Wisconsin Breast Cancer dataset from sklearn.
+    Returns a standardized DataBundle with a stratified train/test split.
+    """
+    # Load dataset
+    data = load_breast_cancer()
+    X = data.data # type: ignore
+    y = data.target # type: ignore
+    feature_names = list(data.feature_names) # type: ignore
+    
+    # Stratified split to ensure class balance in train and test sets
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, 
+        test_size=test_size, 
+        random_state=random_state, 
+        stratify=y
+    )
+    
+    return DataBundle(
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
+        feature_names=feature_names,
+        dataset_name="Wisconsin Breast Cancer"
+    )
+
+def load_csv_dataset(file_path: str, dataset_name: str = "Custom Dataset", test_size: float = 0.2, random_state: int = 42) -> DataBundle:
+    """
+    Loads a dataset from a CSV file.
+    Assumes the target column is named 'class' or is the last column.
+    """
+    df = pd.read_csv(file_path)
+    
+    # Simple assumption: target is 'class', 'target' or the last column
+    if 'class' in df.columns:
+        target_col = 'class'
+    elif 'target' in df.columns:
+        target_col = 'target'
+    else:
+        target_col = df.columns[-1]
+    
+    y = df[target_col].values.tolist()
+    X = df.drop(columns=[target_col]).values
+    feature_names = list(df.drop(columns=[target_col]).columns)
+    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, 
+        test_size=test_size, 
+        random_state=random_state, 
+        stratify=y # type: ignore
+    )
+    
+    return DataBundle(
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
+        feature_names=feature_names,
+        dataset_name=dataset_name
+    )
+
+def load_mnist_binary_dataset(classes: Tuple[int, int] = (0, 1), n_samples: int = 500, img_size: Tuple[int, int] = (6, 4)) -> DataBundle:
+    """
+    Loads MNIST and filters for binary classification.
+    Resizes images to img_size to reduce the number of pixels.
+    """
+    try:
+        from torchvision import datasets, transforms
+    except ImportError:
+        raise ImportError("torchvision is required for loading MNIST. Install it with `pip install torchvision`.")
+        
+    transform = transforms.Compose([
+        transforms.Resize(img_size),
+        transforms.ToTensor()
+    ])
+    
+    # Try downloading to a local ./data folder
+    dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+    
+    X = []
+    y = []
+    
+    count = 0
+    for img, target in dataset:
+        if target in classes:
+            X.append(img.view(-1).numpy()) # Flatten
+            # Map target to 0 or 1
+            y.append(1 if target == classes[1] else 0)
+            count += 1
+            if count >= n_samples:
+                break
+                
+    X = np.array(X)
+    y = np.array(y)
+    
+    # Feature names
+    feature_names = [f"pixel_{i}" for i in range(X.shape[1])]
+    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, 
+        test_size=0.2, 
+        random_state=42, 
+        stratify=y
+    )
+    
+    return DataBundle(
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
+        feature_names=feature_names,
+        dataset_name=f"MNIST Binary ({classes[0]} vs {classes[1]})"
+    )
+
+
