@@ -11,8 +11,8 @@ This work extends the [Q-Ternary VQC](https://github.com/North-Abyss/Q-Ternary-V
 ### Core Innovation 
 
 1. **Direct Pixel Ternary Encoding:** Images are resized to a minimal grid (4×3 = 12 pixels) and thresholded to binary intensities (0=black, 1=white).
-2. **Lossless Ternary Compression:** Our custom 2³→3² algorithm maps binarized pixels directly into ternary quantum states — **33% fewer quantum wires, zero information loss**.
-3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with SU(3) rotations and CSUM ring entanglement performs the final classification using only **72 parameters** (3 layers × 8 wires × 3 angles).
+2. **Lossless Ternary Compression:** Building on Q-Ternary VQC, our custom 2³→3² algorithm maps binarized pixels directly into ternary quantum states — **33% fewer quantum wires, zero information loss** compared to standard qubits.
+3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with a 3-parameter qutrit rotation subgroup and CSUM ring entanglement performs the final classification using only **72 parameters** (3 layers × 8 wires × 3 angles).
 4. **SHAP Explainability:** Permutation-based feature attribution explains which pixel regions drive quantum decisions.
 
 ## Architecture
@@ -119,7 +119,7 @@ As verified in `outputs/training_log.txt`:
 
 ✅ Quantum Model Accuracy: 98.75% | F1: 98.82%
 ```
-Despite operating on a microscopic footprint of just **72 trainable parameters** and **8 quantum wires**, the Qutrit VQC achieves near-perfect classification on the compressed 12-pixel data, staying highly competitive with classical algorithms that require orders of magnitude more weights.
+Despite operating on a microscopic footprint of just **72 trainable parameters** and **8 quantum wires**, the Qutrit VQC achieves near-perfect classification on the compressed 12-pixel data, staying highly competitive with classical algorithms that require orders of magnitude more weights. While currently evaluated on a minimal proof-of-concept task, this architecture demonstrates the fundamental feasibility of parameter-efficient computer vision on physical qudit hardware.
 
 ## Showcase Visualizations
 
