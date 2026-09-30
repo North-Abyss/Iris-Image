@@ -121,6 +121,22 @@ As verified in `outputs/training_log.txt`:
 ```
 Despite operating on a microscopic footprint of just **72 trainable parameters** and **8 quantum wires**, the Qutrit VQC achieves near-perfect classification on the compressed 12-pixel data, staying highly competitive with classical algorithms that require orders of magnitude more weights.
 
+## Showcase Visualizations
+
+<div align="center">
+  <img src="showcase_graphs/accuracy_comparison.png" width="45%" alt="Accuracy Comparison">
+  <img src="showcase_graphs/efficiency_diff_scatter.png" width="45%" alt="Parameter Efficiency">
+</div>
+<br>
+<div align="center">
+  <img src="showcase_graphs/training_loss_curve.png" width="45%" alt="Training Loss Convergence">
+  <img src="showcase_graphs/roc_curves.png" width="45%" alt="ROC Curves">
+</div>
+<br>
+<div align="center">
+  <img src="showcase_graphs/shap_summary.png" width="45%" alt="SHAP Feature Importance">
+  <img src="showcase_graphs/cm_qutrit_vqc.png" width="45%" alt="Qutrit Confusion Matrix">
+</div>
 ## Tech Stack
 
 - **Python 3.10+**
