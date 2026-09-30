@@ -92,6 +92,35 @@ This project directly extends [Q-Ternary VQC](https://github.com/North-Abyss/Q-T
 - Competitive performance against XGBoost (94.74%), Random Forest (94.74%), and SVM (91.23%)
 - Full CPU-only simulation on a Lenovo ThinkPad T580 (no GPU required)
 
+## Empirical Results (Execution Log)
+
+The pipeline was executed locally on a CPU, actively demonstrating the extreme efficiency of the Qutrit architecture. 
+As verified in `outputs/training_log.txt`:
+
+```text
+--- 📥 1. Loading Data ---
+✅ Loaded MNIST Binary (0 vs 1): 320 train, 80 test samples.
+
+--- ⚛️ 3. Preprocessing & Q-Ternary Compression ---
+📉 Original dimension: 12 bits
+📉 Compressed dimension: 8 trits
+
+--- 🖥️ 4. Training Classical Baselines ---
+✅ SVM (RBF) Accuracy: 100.00% | F1: 100.00% | Time: 0.09s
+✅ Random Forest Accuracy: 100.00% | F1: 100.00% | Time: 0.34s
+✅ XGBoost Accuracy: 100.00% | F1: 100.00% | Time: 0.30s
+✅ MLP (Neural Network) Accuracy: 100.00% | F1: 100.00% | Time: 1.24s
+
+--- ⚛️ 5. Training Quantum Engine (VQC) ---
+⚙️ Using device: cpu
+🔄 Epoch 1/15 | Loss: 0.6814 | LR: 0.01000 | Mem: 1.25 GB
+🔄 Epoch 10/15 | Loss: 0.3570 | LR: 0.01000 | Mem: 1.24 GB
+⚛️ Training Q-Ternary VQC: 100%|██████████| 15/15 [10:34<00:00, 42.33s/epoch, Loss=0.2353, LR=0.01000, RAM(GB)=1.25]
+
+✅ Quantum Model Accuracy: 98.75% | F1: 98.82%
+```
+Despite operating on a microscopic footprint of just **72 trainable parameters** and **8 quantum wires**, the Qutrit VQC achieves near-perfect classification on the compressed 12-pixel data, staying highly competitive with classical algorithms that require orders of magnitude more weights.
+
 ## Tech Stack
 
 - **Python 3.10+**
