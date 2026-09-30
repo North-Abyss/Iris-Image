@@ -35,6 +35,7 @@ Thumbs.db
 *.pt
 *.pth
 !data/.gitkeep
+data/MNIST/
 
 # Outputs
 outputs/*
@@ -52,3 +53,8 @@ models/*
 # Documentation (Private for IRIS)
 docs/
 
+# Tests & Scripts
+test/
+
+# Generated
+*.docx

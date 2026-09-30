@@ -27,5 +27,5 @@ echo "==============================================="
 echo "⏳ Loading Heavy Scientific Libraries (PyTorch, PennyLane, XGBoost)..."
 mkdir -p outputs
 export PYTHONUNBUFFERED=1
-python3 src/main.py --dataset breast_cancer --n-features 12 --n-layers 3 --epochs 50 --max-ram 6.0 2>&1 | tee outputs/training_log.txt
+python3 src/main.py --dataset-path mnist --n-features 12 --n-layers 3 --epochs 15 --max-ram 6.0 --run-name "MNIST Direct Encoding" 2>&1 | tee outputs/training_log.txt
 

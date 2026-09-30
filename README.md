@@ -1,79 +1,89 @@
-# Hybrid CNN–Qutrit VQC for Image Classification
+# Direct Pixel Ternary Encoding for Image Classification using Qutrit VQC
 
 > **IRIS 27** — International Research Conference on Computer Vision | Sub-Topic: Image Processing
 
 ## Overview
 
-This project extends the [Q-Ternary VQC](https://github.com/North-Abyss/Q-Ternary-VQC) — a qutrit-based (d=3) variational quantum classifier — from tabular data classification to **image classification**. By coupling a pretrained CNN feature extractor with our proven qutrit quantum decision layer, we demonstrate that ternary quantum circuits can serve as ultra-compact, parameter-efficient classifiers for visual data.
+This project implements a novel **Direct Pixel Ternary Encoding** pipeline for image classification using a **Qutrit Variational Quantum Classifier (VQC)**. By bypassing classical CNN feature extractors and mapping raw image pixels directly into three-level quantum states (qutrits, d=3), we demonstrate an ultra-compact classification system with only **144 trainable parameters**.
+
+This work extends the [Q-Ternary VQC](https://github.com/North-Abyss/Q-Ternary-VQC) from tabular data to **image classification**.
 
 ### Core Innovation 
 
-Our pipeline achieves image classification with as few as **72 trainable parameters** by:
-
-1. **Direct Pixel Ternary Encoding:** Images are resized to a minimal grid (e.g., 4x6 = 24 pixels) and thresholded to binary intensities (0=black, 1=white).
-2. **Lossless Ternary Compression:** Our custom 2³→3² algorithm maps these binarized pixels directly into ternary quantum states — **33% fewer quantum wires, zero information loss**.
-3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with SU(3) rotations and CSUM ring entanglement performs the final classification.
-4. **SHAP Explainability:** Permutation-based feature attribution explains which visual features drive quantum decisions.
+1. **Direct Pixel Ternary Encoding:** Images are resized to a minimal grid (4×6 = 24 pixels) and thresholded to binary intensities (0=black, 1=white).
+2. **Lossless Ternary Compression:** Our custom 2³→3² algorithm maps binarized pixels directly into ternary quantum states — **33% fewer quantum wires, zero information loss**.
+3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with SU(3) rotations and CSUM ring entanglement performs the final classification using only **144 parameters** (3 layers × 16 wires × 3 angles).
+4. **SHAP Explainability:** Permutation-based feature attribution explains which pixel regions drive quantum decisions.
 
 ## Architecture
 
 ```
 ┌──────────┐    ┌──────────────┐    ┌──────────────┐    ┌────────────┐    ┌────────┐
-│  Image   │ →  │ Resize (4x6) │ →  │  Binarize    │ →  │ 2³→3²      │ →  │ Qutrit │ → Class
+│  Image   │ →  │ Resize (4×6) │ →  │  Binarize    │ →  │ 2³→3²      │ →  │ Qutrit │ → Class
 │ (MNIST)  │    │  & Flatten   │    │ (Threshold)  │    │ Encoding   │    │ VQC    │
 └──────────┘    └──────────────┘    └──────────────┘    └────────────┘    └────────┘
-                  Dimension          Pixel               Ternary         Quantum
-                  Reduction          Thresholding        Compression     Classification
+  28×28 px        24 pixels           24 bits             16 trits         16 wires
+                  Dimension           Pixel               Ternary          Quantum
+                  Reduction           Thresholding        Compression      Classification
 ```
 
 ## Repository Structure
 
 ```
-
-├── LICENSE
+├── LICENSE.md               # CC BY-NC-SA 4.0
+├── README.md
 ├── requirements.txt
 ├── .gitignore
 │
-├── docs/
-│   ├── conference/
-│   │   └── ABSTRACT.md          # IRIS 27 submission abstract
-│   └── research/
-│       └── LOG.md               # Research timeline and development log
-│
-├── src/                         # Python source (from Q-Ternary VQC + extensions)
-│   ├── main.py                  # Entry point — training pipeline
-│   ├── core_engine.py           # Core orchestration engine
-│   ├── generate_graphs.py       # Result visualization generator
-│   ├── quantum/                 # Qutrit VQC circuit definition
-│   │   ├── qutrit_model.py      #   PennyLane qutrit variational circuit
-│   │   └── circuit_utils.py     #   Circuit helper utilities
-│   ├── data/                    # Data loading and preprocessing
-│   │   ├── loader.py            #   Dataset loader
-│   │   ├── preprocessor.py      #   Binarization + 2³→3² ternary encoding
-│   │   └── feature_selector.py  #   Mutual Information feature selection
-│   ├── classical/               # Classical ML baselines
-│   │   └── baselines.py         #   XGBoost, RF, SVM, MLP comparisons
-│   ├── evaluation/              # Metrics and visualization
-│   │   ├── metrics.py           #   Accuracy, F1, confusion matrix
-│   │   └── visualizer.py        #   Training curves, comparison plots
-│   ├── explainability/          # SHAP-based interpretability
-│   │   └── xai_engine.py        #   Permutation SHAP for quantum model
-│   ├── models/                  # Saved model weights and history
+├── src/                     # Core Python source
+│   ├── main.py              # Entry point — full training pipeline
+│   ├── quantum/             # Qutrit VQC circuit definition
+│   │   ├── qutrit_model.py  #   PennyLane qutrit variational circuit
+│   │   └── circuit_utils.py #   CSUM gate, Gell-Mann observables
+│   ├── data/                # Data loading and preprocessing
+│   │   ├── loader.py        #   MNIST + CSV dataset loaders
+│   │   ├── preprocessor.py  #   Binarization + 2³→3² ternary encoding
+│   │   └── feature_selector.py  # Mutual Information feature selection
+│   ├── classical/           # Classical ML baselines
+│   │   └── baselines.py     #   SVM, Random Forest, XGBoost, MLP
+│   ├── evaluation/          # Metrics and visualization
+│   │   ├── metrics.py       #   Accuracy, F1, AUC-ROC, Specificity
+│   │   └── visualizer.py    #   Training curves, confusion matrices
+│   ├── explainability/      # SHAP-based interpretability
+│   │   └── xai_engine.py    #   Kernel SHAP for quantum model
+│   ├── models/              # Saved model weights and run history
 │   │   └── history.json
-│   └── api/                     # Flask web API + dashboard
+│   └── api/                 # Flask web API + dashboard
 │       ├── app.py
 │       ├── static/
 │       └── templates/
 │
-├── data/                        # Dataset storage (gitignored)
-├── outputs/                     # Training outputs and graphs
-├── showcase_graphs/             # Presentation-ready visualizations
+├── data/                    # Dataset storage (gitignored)
+├── outputs/                 # Training outputs
+├── showcase_graphs/         # Evidence: presentation-ready visualizations
 │
-├── run.sh                       # Quick-start runner
-├── run-app.sh                   # Full stack launcher
-├── run-backend.sh               # Backend-only launcher
-└── run-frontend.sh              # Frontend-only launcher
+├── run.sh                   # Quick-start training runner
+├── run-app.sh               # Web dashboard launcher
+└── run-backend.sh           # Backend-only launcher
 ```
+
+## Showcase Results
+
+All benchmark evidence is stored in `showcase_graphs/`:
+
+| File | Description |
+|------|-------------|
+| `accuracy_comparison.png` | Bar chart comparing Qutrit VQC vs classical baselines |
+| `training_loss.png` | BCE loss convergence curve over training epochs |
+| `training_loss_curve.png` | Detailed training loss with learning rate schedule |
+| `compression_ratio.png` | Visual proof of 33% wire reduction (24 bits → 16 trits) |
+| `cm_qutrit_vqc.png` | Confusion matrix for the quantum classifier |
+| `cm_svm_rbf.png` | Confusion matrix for SVM baseline |
+| `roc_curves.png` | Overlayed ROC curves for all models |
+| `shap_feature_importance.png` | SHAP bar plot showing pixel importance |
+| `shap_summary.png` | SHAP beeswarm plot for feature attribution |
+| `efficiency_diff_scatter.png` | Parameter efficiency scatter comparison |
+| `training_log.txt` | Raw training output log with timestamps |
 
 ## Built Upon
 
@@ -87,9 +97,27 @@ This project directly extends [Q-Ternary VQC](https://github.com/North-Abyss/Q-T
 - **Python 3.10+**
 - **PennyLane** — Qutrit quantum simulation (`default.qutrit`)
 - **PyTorch** — Hybrid quantum-classical training
-- **torchvision** — Pretrained CNN feature extraction
+- **torchvision** — MNIST dataset loading and image transforms
+- **Pillow** — Image preprocessing
 - **SHAP** — Explainable AI
 - **scikit-learn** — Classical baselines and preprocessing
+- **Flask** — Web dashboard and API
+
+## Quick Start
+
+```bash
+# Clone and setup
+git clone https://github.com/North-Abyss/Iris-Image.git
+cd Iris-Image
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# Run training pipeline
+python src/main.py --dataset-path mnist --epochs 15 --run-name "MNIST Direct Encoding"
+
+# Or use the quick-start script
+./run.sh
+```
 
 ## License
 
@@ -99,4 +127,3 @@ CC BY-NC-SA 4.0
 
 **Yuvanesh KS** — B.Tech IT, AMCET (Anna University)
 - GitHub: [North-Abyss](https://github.com/North-Abyss)
-- Portfolio: [yuvaneshkumar.github.io](https://yuvaneshkumar.github.io)

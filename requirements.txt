@@ -1,5 +1,6 @@
 numpy
 torch
+torchvision
 pennylane
 scikit-learn
 matplotlib
@@ -10,3 +11,4 @@ pandas
 xgboost
 psutil
 flask-cors
+pillow

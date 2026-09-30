@@ -85,6 +85,8 @@ def load_mnist_binary_dataset(classes: Tuple[int, int] = (0, 1), n_samples: int 
     """
     try:
         from torchvision import datasets, transforms
+        # Use reliable AWS mirror to avoid random connection drops from the main MNIST server
+        datasets.MNIST.mirrors = ["https://ossci-datasets.s3.amazonaws.com/mnist/"]
     except ImportError:
         raise ImportError("torchvision is required for loading MNIST. Install it with `pip install torchvision`.")
         
