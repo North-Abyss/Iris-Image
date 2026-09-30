@@ -4,25 +4,25 @@
 
 ## Overview
 
-This project implements a novel **Direct Pixel Ternary Encoding** pipeline for image classification using a **Qutrit Variational Quantum Classifier (VQC)**. By bypassing classical CNN feature extractors and mapping raw image pixels directly into three-level quantum states (qutrits, d=3), we demonstrate an ultra-compact classification system with only **144 trainable parameters**.
+This project implements a novel **Direct Pixel Ternary Encoding** pipeline for image classification using a **Qutrit Variational Quantum Classifier (VQC)**. By bypassing classical CNN feature extractors and mapping raw image pixels directly into three-level quantum states (qutrits, d=3), we demonstrate an ultra-compact classification system with only **72 trainable parameters**.
 
 This work extends the [Q-Ternary VQC](https://github.com/North-Abyss/Q-Ternary-VQC) from tabular data to **image classification**.
 
 ### Core Innovation 
 
-1. **Direct Pixel Ternary Encoding:** Images are resized to a minimal grid (4×6 = 24 pixels) and thresholded to binary intensities (0=black, 1=white).
+1. **Direct Pixel Ternary Encoding:** Images are resized to a minimal grid (4×3 = 12 pixels) and thresholded to binary intensities (0=black, 1=white).
 2. **Lossless Ternary Compression:** Our custom 2³→3² algorithm maps binarized pixels directly into ternary quantum states — **33% fewer quantum wires, zero information loss**.
-3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with SU(3) rotations and CSUM ring entanglement performs the final classification using only **144 parameters** (3 layers × 16 wires × 3 angles).
+3. **Qutrit VQC Classification:** A PennyLane `default.qutrit` variational circuit with SU(3) rotations and CSUM ring entanglement performs the final classification using only **72 parameters** (3 layers × 8 wires × 3 angles).
 4. **SHAP Explainability:** Permutation-based feature attribution explains which pixel regions drive quantum decisions.
 
 ## Architecture
 
 ```
 ┌──────────┐    ┌──────────────┐    ┌──────────────┐    ┌────────────┐    ┌────────┐
-│  Image   │ →  │ Resize (4×6) │ →  │  Binarize    │ →  │ 2³→3²      │ →  │ Qutrit │ → Class
+│  Image   │ →  │ Resize (4×3) │ →  │  Binarize    │ →  │ 2³→3²      │ →  │ Qutrit │ → Class
 │ (MNIST)  │    │  & Flatten   │    │ (Threshold)  │    │ Encoding   │    │ VQC    │
 └──────────┘    └──────────────┘    └──────────────┘    └────────────┘    └────────┘
-  28×28 px        24 pixels           24 bits             16 trits         16 wires
+  28×28 px        12 pixels           12 bits             8 trits          8 wires
                   Dimension           Pixel               Ternary          Quantum
                   Reduction           Thresholding        Compression      Classification
 ```
@@ -76,7 +76,7 @@ All benchmark evidence is stored in `showcase_graphs/`:
 | `accuracy_comparison.png` | Bar chart comparing Qutrit VQC vs classical baselines |
 | `training_loss.png` | BCE loss convergence curve over training epochs |
 | `training_loss_curve.png` | Detailed training loss with learning rate schedule |
-| `compression_ratio.png` | Visual proof of 33% wire reduction (24 bits → 16 trits) |
+| `compression_ratio.png` | Visual proof of 33% wire reduction (12 bits → 8 trits) |
 | `cm_qutrit_vqc.png` | Confusion matrix for the quantum classifier |
 | `cm_svm_rbf.png` | Confusion matrix for SVM baseline |
 | `roc_curves.png` | Overlayed ROC curves for all models |
