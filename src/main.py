@@ -48,7 +48,7 @@ def main():
     # 1. Load Data
     print("--- 📥 1. Loading Data ---")
     if args.dataset_path.lower() == "mnist":
-        bundle = load_mnist_binary_dataset(n_samples=500, img_size=(6, 4))
+        bundle = load_mnist_binary_dataset(n_samples=400, img_size=(4, 3))
     else:
         bundle = load_csv_dataset(args.dataset_path, dataset_name=args.run_name)
     

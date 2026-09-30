@@ -1,34 +1,49 @@
-/mnt/sda5/Projects/QT/.venv/lib/python3.14/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator SimpleImputer from version 1.7.2 when using version 1.9.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
-https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
-  warnings.warn(
-/mnt/sda5/Projects/QT/.venv/lib/python3.14/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator StandardScaler from version 1.7.2 when using version 1.9.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
-https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
-  warnings.warn(
-/mnt/sda5/Projects/QT/.venv/lib/python3.14/site-packages/sklearn/base.py:525: InconsistentVersionWarning: Trying to unpickle estimator SelectKBest from version 1.7.2 when using version 1.9.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
-https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
-  warnings.warn(
-✅ Pipeline successfully loaded from models/ directory.
+⚠️ Models directory (/mnt/sda5/Projects/Iris-Image/models) empty. Please train the model first.
 ===============================================
 🚀 Starting QMLPlatform 🚀
-Dataset: breast_cancer
-Target Features: 12
+📊 Dataset: MNIST Direct Encoding (mnist)
+🎯 Target Features: 12
 ===============================================
 
---- 1. Loading Data ---
-Loaded Wisconsin Breast Cancer: 455 train, 114 test samples.
+--- 📥 1. Loading Data ---
+✅ Loaded MNIST Binary (0 vs 1): 320 train, 80 test samples.
 
---- 2. Feature Selection (Mutual Information) ---
-Selected features: 12
+--- 🔍 2. Feature Selection (Mutual Information) ---
+Skipping Mutual Information selection for Direct Pixel Encoding.
 
---- 3. Preprocessing & Q-Ternary Compression ---
-Original dimension: 12 bits
-Compressed dimension: 8 trits
+--- ⚛️ 3. Preprocessing & Q-Ternary Compression ---
+📉 Original dimension: 12 bits
+📉 Compressed dimension: 8 trits
 
---- 4. Training Classical Baselines ---
-SVM (RBF) Accuracy: 91.23% | F1: 93.15% | Time: 0.07s
-Random Forest Accuracy: 94.74% | F1: 95.89% | Time: 0.23s
-XGBoost Accuracy: 94.74% | F1: 95.89% | Time: 0.11s
-MLP (Neural Network) Accuracy: 92.11% | F1: 93.88% | Time: 0.17s
+--- 🖥️ 4. Training Classical Baselines ---
+✅ SVM (RBF) Accuracy: 100.00% | F1: 100.00% | Time: 0.09s
+✅ Random Forest Accuracy: 100.00% | F1: 100.00% | Time: 0.34s
+✅ XGBoost Accuracy: 100.00% | F1: 100.00% | Time: 0.30s
+✅ MLP (Neural Network) Accuracy: 100.00% | F1: 100.00% | Time: 1.24s
 
---- 5. Training Quantum Engine (VQC) ---
-Using device: cpu
+--- ⚛️ 5. Training Quantum Engine (VQC) ---
+⚙️ Using device: cpu
+⚛️ Training Q-Ternary VQC:   0%|          | 0/15 [00:00<?, ?epoch/s]⚛️ Training Q-Ternary VQC:   0%|          | 0/15 [00:52<?, ?epoch/s, Loss=0.6814, LR=0.01000, RAM(GB)=1.25]                                                                                                           
+🔄 Epoch 1/15 | Loss: 0.6814 | LR: 0.01000 | Mem: 1.25 GB
+
+⚛️ Training Q-Ternary VQC:   0%|          | 0/15 [00:52<?, ?epoch/s, Loss=0.6814, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:   7%|▋         | 1/15 [00:52<12:13, 52.36s/epoch, Loss=0.6814, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:   7%|▋         | 1/15 [01:37<12:13, 52.36s/epoch, Loss=0.6659, LR=0.01000, RAM(GB)=1.23]⚛️ Training Q-Ternary VQC:  13%|█▎        | 2/15 [01:37<10:26, 48.17s/epoch, Loss=0.6659, LR=0.01000, RAM(GB)=1.23]⚛️ Training Q-Ternary VQC:  13%|█▎        | 2/15 [02:26<10:26, 48.17s/epoch, Loss=0.6455, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  20%|██        | 3/15 [02:26<09:39, 48.30s/epoch, Loss=0.6455, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  20%|██        | 3/15 [03:11<09:39, 48.30s/epoch, Loss=0.6082, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  27%|██▋       | 4/15 [03:11<08:39, 47.24s/epoch, Loss=0.6082, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  27%|██▋       | 4/15 [03:58<08:39, 47.24s/epoch, Loss=0.5508, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  33%|███▎      | 5/15 [03:58<07:52, 47.27s/epoch, Loss=0.5508, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  33%|███▎      | 5/15 [04:48<07:52, 47.27s/epoch, Loss=0.4809, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  40%|████      | 6/15 [04:48<07:12, 48.03s/epoch, Loss=0.4809, LR=0.01000, RAM(GB)=1.26]⚛️ Training Q-Ternary VQC:  40%|████      | 6/15 [05:37<07:12, 48.03s/epoch, Loss=0.4294, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  47%|████▋     | 7/15 [05:37<06:25, 48.24s/epoch, Loss=0.4294, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  47%|████▋     | 7/15 [06:22<06:25, 48.24s/epoch, Loss=0.3972, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  53%|█████▎    | 8/15 [06:22<05:31, 47.37s/epoch, Loss=0.3972, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  53%|█████▎    | 8/15 [07:07<05:31, 47.37s/epoch, Loss=0.3777, LR=0.01000, RAM(GB)=1.22]⚛️ Training Q-Ternary VQC:  60%|██████    | 9/15 [07:07<04:39, 46.54s/epoch, Loss=0.3777, LR=0.01000, RAM(GB)=1.22]⚛️ Training Q-Ternary VQC:  60%|██████    | 9/15 [07:52<04:39, 46.54s/epoch, Loss=0.3570, LR=0.01000, RAM(GB)=1.24]                                                                                                                   
+🔄 Epoch 10/15 | Loss: 0.3570 | LR: 0.01000 | Mem: 1.24 GB
+
+⚛️ Training Q-Ternary VQC:  60%|██████    | 9/15 [07:52<04:39, 46.54s/epoch, Loss=0.3570, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  67%|██████▋   | 10/15 [07:52<03:50, 46.09s/epoch, Loss=0.3570, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  67%|██████▋   | 10/15 [08:31<03:50, 46.09s/epoch, Loss=0.3195, LR=0.01000, RAM(GB)=1.23]⚛️ Training Q-Ternary VQC:  73%|███████▎  | 11/15 [08:31<02:56, 44.04s/epoch, Loss=0.3195, LR=0.01000, RAM(GB)=1.23]⚛️ Training Q-Ternary VQC:  73%|███████▎  | 11/15 [09:00<02:56, 44.04s/epoch, Loss=0.2730, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  80%|████████  | 12/15 [09:00<01:57, 39.20s/epoch, Loss=0.2730, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  80%|████████  | 12/15 [09:30<01:57, 39.20s/epoch, Loss=0.2474, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  87%|████████▋ | 13/15 [09:30<01:13, 36.62s/epoch, Loss=0.2474, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC:  87%|████████▋ | 13/15 [10:01<01:13, 36.62s/epoch, Loss=0.2395, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  93%|█████████▎| 14/15 [10:01<00:35, 35.01s/epoch, Loss=0.2395, LR=0.01000, RAM(GB)=1.24]⚛️ Training Q-Ternary VQC:  93%|█████████▎| 14/15 [10:34<00:35, 35.01s/epoch, Loss=0.2353, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC: 100%|██████████| 15/15 [10:34<00:00, 34.41s/epoch, Loss=0.2353, LR=0.01000, RAM(GB)=1.25]⚛️ Training Q-Ternary VQC: 100%|██████████| 15/15 [10:34<00:00, 42.33s/epoch, Loss=0.2353, LR=0.01000, RAM(GB)=1.25]
+
+✅ Quantum Model Accuracy: 98.75% | F1: 98.82%
+
+--- 📈 6. Saving Evaluation Data (Graphs on demand) ---
+✅ Saved Evaluation Data to models/run_20260930_220458/eval_data.pkl (Generate graphs from UI).
+
+--- 💾 8. Saving Trained Models to Disk ---
+✅ Saved Quantum VQC weights to models/run_20260930_220458/qutrit_vqc_weights.pt
+✅ Saved Classical SVM (RBF) to models/run_20260930_220458/svm_(rbf)_baseline.pkl
+✅ Saved Classical Random Forest to models/run_20260930_220458/random_forest_baseline.pkl
+✅ Saved Classical XGBoost to models/run_20260930_220458/xgboost_baseline.pkl
+✅ Saved Classical MLP (Neural Network) to models/run_20260930_220458/mlp_(neural_network)_baseline.pkl
+✅ Saved Preprocessor and Feature Selector to models/run_20260930_220458/
+
+===============================================
+🎉 Pipeline Execution Complete.
+===============================================
