@@ -12,10 +12,25 @@ let sampleData = [];
 let debounceTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initCanvas();
     fetchSamples();
     fetchModelInfo();
 });
+
+function switchAppTheme(themeName) {
+    document.documentElement.setAttribute('data-theme', themeName);
+    localStorage.setItem('iris_theme', themeName);
+    const select = document.getElementById('theme-select');
+    if (select && select.value !== themeName) {
+        select.value = themeName;
+    }
+}
+
+function initTheme() {
+    const saved = localStorage.getItem('iris_theme') || 'skeuomorphism-dark';
+    switchAppTheme(saved);
+}
 
 function initCanvas() {
     canvas = document.getElementById('drawing-canvas');
