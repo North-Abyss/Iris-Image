@@ -96,7 +96,8 @@ def load_pipeline(target_dir=None):
             return
 
         preprocessor = joblib.load(os.path.join(model_dir, 'preprocessor.pkl'))
-        feature_selector = joblib.load(os.path.join(model_dir, 'feature_selector.pkl'))
+        fs_path = os.path.join(model_dir, 'feature_selector.pkl')
+        feature_selector = joblib.load(fs_path) if os.path.exists(fs_path) else None
         feature_names = joblib.load(os.path.join(model_dir, 'feature_names.pkl'))
         
         n_features = len(feature_names)

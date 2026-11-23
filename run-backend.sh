@@ -5,14 +5,20 @@ set -e
 
 echo "🚀 Starting Q-Ternary VQC Backend..."
 
-# Check if the virtual environment exists
-if [ ! -d ".venv" ]; then
+# Locate and activate virtual environment
+SHARED_VENV="/mnt/sda5/Projects/QT/.venv"
+LOCAL_VENV=".venv"
+
+if [ -d "$SHARED_VENV" ]; then
+    echo "🔄 Using shared Q-Ternary virtual environment..."
+    source "$SHARED_VENV/bin/activate"
+elif [ -d "$LOCAL_VENV" ]; then
+    echo "🔄 Using local virtual environment..."
+    source "$LOCAL_VENV/bin/activate"
+else
     echo "📦 Virtual environment not found. Please run ./run.sh first to install dependencies."
     exit 1
 fi
-
-echo "🔄 Activating virtual environment..."
-source .venv/bin/activate
 
 echo "🌐 Starting the Flask API server..."
 export FLASK_ENV=development
