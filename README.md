@@ -7,7 +7,7 @@
 
 > **Accepted for presentation at IRIS 2027** (*International Research Conference on Computer Vision*)  
 > **Proceedings:** Springer Nature's *Lecture Notes in Electrical Engineering* (LNEE)  
-> **Author:** Yuvanesh KS — AMCET (Anna University), Tamil Nadu, India
+> **Author:** Yuvanesh KS ([@North-Abyss](https://github.com/North-Abyss)) — AMCET (Anna University), Tamil Nadu, India
 
 ---
 
