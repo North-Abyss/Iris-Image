@@ -135,14 +135,20 @@ function updateMiniThumbnail() {
 }
 
 function switchInputTab(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === tabId);
+    document.querySelectorAll('.tactile-tab, .tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
     });
     document.querySelectorAll('.tab-pane').forEach(pane => {
         pane.classList.remove('active');
     });
     const activePane = document.getElementById(`tab-${tabId}`);
     if (activePane) activePane.classList.add('active');
+}
+
+function quickLoadPreset(index) {
+    if (sampleData && sampleData[index]) {
+        loadSampleIntoCanvas(sampleData[index]);
+    }
 }
 
 // -------------------------------------------------------------------------

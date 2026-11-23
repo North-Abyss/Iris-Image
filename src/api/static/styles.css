@@ -345,6 +345,55 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
+/* Quick Presets Bar */
+.quick-presets-bar {
+    margin-top: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.quick-title {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--font-mono, monospace);
+    color: var(--theme-text-muted);
+}
+
+.quick-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.quick-chip {
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 800;
+    font-family: var(--font-mono, monospace);
+    background: var(--theme-surface-elevated, #2C2E34);
+    box-shadow: var(--theme-shadow-sm);
+    border: var(--theme-border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.quick-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--theme-shadow-hover);
+}
+
+.quick-chip:active {
+    transform: translateY(1px);
+}
+
+.quick-chip.chip-0 { color: #38bdf8; }
+.quick-chip.chip-1 { color: #c084fc; }
+
 /* Auto predict row */
 .auto-predict-row {
     margin-top: 12px;

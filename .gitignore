@@ -58,7 +58,7 @@ tmp/
 full-paper/
 
 # Tests & Scripts
-test/
+test/ 
 
 # Generated
 *.docx
