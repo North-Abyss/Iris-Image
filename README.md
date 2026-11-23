@@ -57,7 +57,7 @@ This work represents the visual evolution of [**Q-Ternary VQC**](https://github.
 Evaluated on the $4 \times 3$ (12-pixel) binarized MNIST benchmark ($N_{\text{train}} = 320$, $N_{\text{test}} = 80$):
 
 | Model | Architecture / Kernel | Trainable Parameters | Test Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **SVM** | RBF Kernel ($C=1.0$) | $\approx 1,200$ SVs | 100.00% | 1.0000 | 1.0000 | 100.00% | 1.0000 |
 | **Random Forest** | 100 Estimators | $\approx 1,500$ Nodes | 100.00% | 1.0000 | 1.0000 | 100.00% | 1.0000 |
 | **XGBoost** | Gradient Boosted Trees | $\approx 1,800$ Nodes | 100.00% | 1.0000 | 1.0000 | 100.00% | 1.0000 |
