@@ -137,6 +137,7 @@ Despite operating on a microscopic footprint of just **72 trainable parameters**
   <img src="showcase_graphs/shap_summary.png" width="45%" alt="SHAP Feature Importance">
   <img src="showcase_graphs/cm_qutrit_vqc.png" width="45%" alt="Qutrit Confusion Matrix">
 </div>
+
 ## Tech Stack
 
 - **Python 3.10+**

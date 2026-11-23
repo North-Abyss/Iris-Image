@@ -52,9 +52,14 @@ models/*
 
 # Documentation (Private for IRIS)
 docs/
+tmp/
+ 
+# Full paper (private — submitted separately to Springer)
+full-paper/
 
 # Tests & Scripts
 test/
 
 # Generated
 *.docx
+.playwright-mcp/
