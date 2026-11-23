@@ -50,8 +50,7 @@ models/*
 .env
 .env.local
 
-# Documentation (Private for IRIS)
-docs/
+# Documentation (Private for IRIS) docs/
 tmp/
  
 # Full paper (private — submitted separately to Springer)
