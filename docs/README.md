@@ -11,6 +11,7 @@ Welcome to the technical documentation for **Iris-Image**, an open-source Quantu
 | **[Architecture & Quantum Theory](ARCHITECTURE.md)** | Mathematical formulation of lossless $2^3 \to 3^2$ radix conversion, SU(3) subgroup rotations, CSUM ring entanglement, and Gell-Mann observables. |
 | **[Getting Started & Developer Guide](GETTING_STARTED.md)** | Environment setup, training pipeline execution, Flask web dashboard launch, and interactive inference instructions. |
 | **[Explainability & Benchmarks](EXPLAINABILITY_AND_BENCHMARKS.md)** | Empirical comparisons vs. classical ML models (SVM, RF, XGBoost, MLP), parameter efficiency frontier, and Quantum SHAP stroke attribution analysis. |
+| **[Publication Timeline & Roadmap](PUBLICATION_TIMELINE.md)** | Post-submission schedule, Springer Nature e.Proofing stages, IRIS 2027 presentation roadmap, and global indexing milestones. |
 
 ---
 

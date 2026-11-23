@@ -18,6 +18,7 @@ Comprehensive engineering and theoretical documentation is available in the [`do
 * 🔬 **[Architecture & Quantum Theory](docs/ARCHITECTURE.md):** Mathematical formulation of the lossless $2^3 \to 3^2$ radix conversion, SU(3) subgroup rotations, CSUM ring entanglement, and Gell-Mann observable measurement.
 * 🚀 **[Getting Started & Developer Guide](docs/GETTING_STARTED.md):** Environment setup, CLI training runner, Flask web dashboard launch, and interactive inference instructions.
 * 📊 **[Explainability & Benchmarks](docs/EXPLAINABILITY_AND_BENCHMARKS.md):** Empirical comparison tables (Qutrit VQC vs. SVM, RF, XGBoost, MLP), parameter efficiency frontier, and Quantum SHAP stroke attribution analysis.
+* 📅 **[Publication Timeline & Roadmap](docs/PUBLICATION_TIMELINE.md):** Complete post-submission schedule, Springer Nature e.Proofing stages, conference presentation roadmap, and indexing milestones.
 
 ---
 
