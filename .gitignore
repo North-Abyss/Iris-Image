@@ -63,3 +63,4 @@ test/
 # Generated
 *.docx
 .playwright-mcp/
+email-sent/
