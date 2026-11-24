@@ -24,7 +24,7 @@ Call for Papers ──► Shortlisted Abstracts ──► Full Paper Submission 
 | :---: | :--- | :---: | :---: | :--- |
 | **01** | **Call for Papers Deadline** | **October 17, 2026** | ✅ **COMPLETED** | Initial abstract submission on direct pixel ternary encoding & Qutrit VQC. |
 | **02** | **Shortlisted Abstracts Announcement** | **November 18, 2026** | ✅ **COMPLETED** | Abstract officially accepted for full paper preparation for Springer Nature proceedings. |
-| **03** | **Full Paper Submission Deadline** | **November 22, 2026**<br>*(Extended to Nov 25)* | ✅ **SUBMITTED**<br>*(Nov 23, 19:34 IST)* | Complete camera-ready package emailed to `conference@shaastra.org` with all 3 verified attachments. |
+| **03** | **Full Paper Submission Deadline** | **November 22, 2026**<br>*(Extended to Nov 26, 11:59 PM IST)* | ✅ **SUBMITTED & UPDATED**<br>*(Nov 23 initial / Nov 24 `llncs.cls` update)* | Complete camera-ready package using official `llncs.cls` & `splncs04.bst` emailed to `conference@shaastra.org`. |
 | **04** | **Shortlisted Full Papers Announcement** | **December 1st Week, 2026** | ⏳ **UPCOMING** | Official notification from the committee on full papers selected to be presented at the conference. |
 | **05** | **Paper Presentation at the Conference** | **January 2–3, 2027** | ⏳ **UPCOMING** | Oral / technical paper presentation at **Shaastra, IIT Madras**. |
 
