@@ -3,11 +3,8 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![PennyLane](https://img.shields.io/badge/PennyLane-Qutrit%20Simulation-ffd43b?logo=scikitlearn&logoColor=black)](https://pennylane.ai/)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Conference](https://img.shields.io/badge/IRIS%202027-Springer%20Nature%20LNEE-blue)](https://www.springernature.com/gp/authors/publish-a-book/step-by-step-conference-proceedings)
 
-> **Accepted for presentation at IRIS 2027** (*International Research Conference on Computer Vision*)  
-> **Proceedings:** Springer Nature's *Lecture Notes in Electrical Engineering* (LNEE)  
-> **Author:** Yuvanesh KS ([@North-Abyss](https://github.com/North-Abyss)) — AMCET (Anna University), Tamil Nadu, India
+> **Author:** Yuvanesh KS ([@North-Abyss](https://github.com/North-Abyss)) — Research & Engineering Project
 
 ---
 
@@ -18,7 +15,6 @@ Comprehensive engineering and theoretical documentation is available in the [`do
 * 🔬 **[Architecture & Quantum Theory](docs/ARCHITECTURE.md):** Mathematical formulation of the lossless $2^3 \to 3^2$ radix conversion, SU(3) subgroup rotations, CSUM ring entanglement, and Gell-Mann observable measurement.
 * 🚀 **[Getting Started & Developer Guide](docs/GETTING_STARTED.md):** Environment setup, CLI training runner, Flask web dashboard launch, and interactive inference instructions.
 * 📊 **[Explainability & Benchmarks](docs/EXPLAINABILITY_AND_BENCHMARKS.md):** Empirical comparison tables (Qutrit VQC vs. SVM, RF, XGBoost, MLP), parameter efficiency frontier, and Quantum SHAP stroke attribution analysis.
-* 📅 **[Publication Timeline & Roadmap](docs/PUBLICATION_TIMELINE.md):** Complete post-submission schedule, Springer Nature e.Proofing stages, conference presentation roadmap, and indexing milestones.
 
 ---
 
@@ -143,16 +139,14 @@ Open [http://127.0.0.1:5000](http://127.0.0.1:5000) to draw digits and run live 
 
 ## 📜 Citation
 
-If you use this work, algorithm, or codebase in your research, please cite our conference publication:
+If you use this codebase, encoding algorithm, or simulation weights in your work, please cite:
 
 ```bibtex
-@inproceedings{yuvanesh2027direct,
-  title={Direct Pixel Ternary Encoding for Image Classification Using a Qutrit Variational Quantum Classifier},
+@software{yuvanesh2026irisimage,
+  title={Iris-Image: Direct Pixel Ternary Encoding for Image Classification Using a Qutrit Variational Quantum Classifier},
   author={Yuvanesh, KS},
-  booktitle={Proceedings of an International Research Conference on Computer Vision: IRIS 2027},
-  series={Lecture Notes in Electrical Engineering},
-  publisher={Springer Nature},
-  year={2027}
+  url={https://github.com/North-Abyss/Iris-Image},
+  year={2026}
 }
 ```
 
@@ -162,6 +156,5 @@ If you use this work, algorithm, or codebase in your research, please cite our c
 
 * **Code & Weights:** Licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0)](LICENSE.md).
 * **Author:** **Yuvanesh KS**
-* **Affiliation:** AMCET (Anna University), Tamil Nadu, India
 * **Email:** [yuvaneshkarunakaran@gmail.com](mailto:yuvaneshkarunakaran@gmail.com)
 * **GitHub:** [@North-Abyss](https://github.com/North-Abyss)

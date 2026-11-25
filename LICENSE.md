@@ -15,8 +15,3 @@ Under the following terms:
 - ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 Read the full legal code at: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
-
----
-
-### Scope and Manuscript Publishing Clarification
-This Creative Commons license (CC BY-NC-SA 4.0) applies exclusively to the open-source software code, simulation scripts, model checkpoints, and reproducibility artifacts contained within this repository. The corresponding academic research paper text prepared for publication in Springer Nature's *Lecture Notes in Electrical Engineering* (LNEE) proceedings (IRIS 2027) is licensed separately under the official Springer Nature Contributor Agreement. All rights to the manuscript text and chapter formatting are governed by the publisher agreement.

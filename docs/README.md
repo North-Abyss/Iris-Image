@@ -11,7 +11,6 @@ Welcome to the technical documentation for **Iris-Image**, an open-source Quantu
 | **[Architecture & Quantum Theory](ARCHITECTURE.md)** | Mathematical formulation of lossless $2^3 \to 3^2$ radix conversion, SU(3) subgroup rotations, CSUM ring entanglement, and Gell-Mann observables. |
 | **[Getting Started & Developer Guide](GETTING_STARTED.md)** | Environment setup, training pipeline execution, Flask web dashboard launch, and interactive inference instructions. |
 | **[Explainability & Benchmarks](EXPLAINABILITY_AND_BENCHMARKS.md)** | Empirical comparisons vs. classical ML models (SVM, RF, XGBoost, MLP), parameter efficiency frontier, and Quantum SHAP stroke attribution analysis. |
-| **[Publication Timeline & Roadmap](PUBLICATION_TIMELINE.md)** | Post-submission schedule, Springer Nature e.Proofing stages, IRIS 2027 presentation roadmap, and global indexing milestones. |
 
 ---
 
@@ -44,17 +43,15 @@ This project builds directly upon the foundational discoveries of [Q-Ternary VQC
 
 ---
 
-## 🏛️ Citation & Publication
+## 📜 Citation
 
-This work has been accepted for presentation at **IRIS 2027** (*International Research Conference on Computer Vision*) and will appear in Springer Nature's ***Lecture Notes in Electrical Engineering* (LNEE)** proceedings:
+If you use this software or algorithm in your research, please cite:
 
 ```bibtex
-@inproceedings{yuvanesh2027direct,
-  title={Direct Pixel Ternary Encoding for Image Classification Using a Qutrit Variational Quantum Classifier},
+@software{yuvanesh2026irisimage,
+  title={Iris-Image: Direct Pixel Ternary Encoding for Image Classification Using a Qutrit Variational Quantum Classifier},
   author={Yuvanesh, KS},
-  booktitle={Proceedings of an International Research Conference on Computer Vision: IRIS 2027},
-  series={Lecture Notes in Electrical Engineering},
-  publisher={Springer Nature},
-  year={2027}
+  url={https://github.com/North-Abyss/Iris-Image},
+  year={2026}
 }
 ```

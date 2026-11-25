@@ -51,16 +51,12 @@ models/*
 .env
 .env.local
 
-# Documentation (Private for IRIS) docs/
+# Private Conference / Submission Materials (kept strictly local)
 tmp/
- 
-# Full paper (private — submitted separately to Springer)
 full-paper/
-
-# Tests & Scripts
-test/ 
-
-# Generated
+test/
+email-sent/
+TIMELINE.md
+**/PUBLICATION_TIMELINE.md
 *.docx
 .playwright-mcp/
-email-sent/

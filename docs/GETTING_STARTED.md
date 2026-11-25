@@ -109,20 +109,3 @@ src/
     ├── static/          # JavaScript canvas engine & CSS styles
     └── templates/       # HTML5 interactive interface
 ```
-
----
-
-## 🔍 Exporting High-Resolution Paper Figures
-
-To re-generate all publication-quality vector figures ($1200\text{ DPI}$ PNG & PDF) matching Springer Nature formatting standards:
-
-```bash
-python3 test/export_paper_figures.py
-```
-
-Generated figures will appear in `full-paper/figures/`:
-* `fig1_encoding_pipeline.png` — Authentic MNIST 4-stage pipeline
-* `fig2_wire_loss.png` — Quantum wire allocation & BCE loss convergence
-* `fig3_accuracy_efficiency.png` — Benchmark comparison & parameter efficiency frontier
-* `fig4_confusion_roc.png` — Confusion matrix & multi-model ROC curves
-* `fig5_shap_importance.png` — 2-panel Quantum SHAP spatial grid & feature ranking

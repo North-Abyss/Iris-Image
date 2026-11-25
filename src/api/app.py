@@ -260,8 +260,7 @@ def model_info():
         "parameter_reduction": "97.58%",
         "test_accuracy": "98.75%",
         "test_f1": "98.82%",
-        "roc_auc": "0.9987",
-        "conference": "IRIS 2027 (Springer Nature LNEE)"
+        "roc_auc": "0.9987"
     })
 
 # Maintain backward compatibility
