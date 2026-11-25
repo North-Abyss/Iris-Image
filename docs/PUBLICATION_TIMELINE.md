@@ -6,7 +6,7 @@
 **Conference:** IRIS 2027 – International Research Conference on Computer Vision (Shaastra, IIT Madras)  
 **Proceedings Series:** Springer Nature — *Lecture Notes in Electrical Engineering* (LNEE)  
 **Official Conference Schedule:** [https://iris.shaastra.org/schedule](https://iris.shaastra.org/schedule)  
-**Submission Timestamp:** 23 November 2026, 19:34 IST  
+**Submission Timestamp:** 23 November 2026, 19:34 IST (Updated Final `llncs.cls` Package Sent: 25 November 2026, 18:31 IST)  
 
 ---
 
@@ -24,7 +24,7 @@ Call for Papers ──► Shortlisted Abstracts ──► Full Paper Submission 
 | :---: | :--- | :---: | :---: | :--- |
 | **01** | **Call for Papers Deadline** | **October 17, 2026** | ✅ **COMPLETED** | Initial abstract submission on direct pixel ternary encoding & Qutrit VQC. |
 | **02** | **Shortlisted Abstracts Announcement** | **November 18, 2026** | ✅ **COMPLETED** | Abstract officially accepted for full paper preparation for Springer Nature proceedings. |
-| **03** | **Full Paper Submission Deadline** | **November 22, 2026**<br>*(Extended to Nov 26, 11:59 PM IST)* | ✅ **SUBMITTED & UPDATED**<br>*(Nov 23 initial / Nov 24 `llncs.cls` update)* | Complete camera-ready package using official `llncs.cls` & `splncs04.bst` emailed to `conference@shaastra.org`. |
+| **03** | **Full Paper Submission Deadline** | **November 22, 2026**<br>*(Extended to Nov 26, 11:59 PM IST)* | ✅ **SUBMITTED & UPDATED**<br>*(Nov 23 initial / Nov 25 `llncs.cls` final)* | Complete camera-ready package using official `llncs.cls` & `splncs04.bst` emailed to `conference@shaastra.org`. |
 | **04** | **Shortlisted Full Papers Announcement** | **December 1st Week, 2026** | ⏳ **UPCOMING** | Official notification from the committee on full papers selected to be presented at the conference. |
 | **05** | **Paper Presentation at the Conference** | **January 2–3, 2027** | ⏳ **UPCOMING** | Oral / technical paper presentation at **Shaastra, IIT Madras**. |
 
@@ -72,14 +72,14 @@ Volume Compilation   ──►   Springer e.Proofing   ──►   Formal Book R
 
 ---
 
-## 🗂️ Official Submission Record (Transmitted Nov 23, 2026)
+## 🗂️ Official Submission Record (Final Package Transmitted Nov 25, 2026)
 
 The following files were officially packaged and emailed to `conference@shaastra.org`:
 
 | File Name | Size | Verification Status |
 | :--- | :---: | :--- |
-| **`IRIS2027_Final_Paper_Yuvanesh_KS.pdf`** | 240 KB | Camera-ready manuscript; verified **EXACTLY 10 pages** per LNEE guidelines. |
-| **`IRIS2027_Source_Files_Yuvanesh_KS.zip`** | 4.8 MB | Complete LaTeX source package (`main.tex`, `main.bbl`, `references.bib`, `svproc.cls`, `spmpsci.bst`, and 20+ vector figures). |
+| **`IRIS2027_Final_Paper_Yuvanesh_KS.pdf`** | 241 KB | Camera-ready `llncs.cls` manuscript; includes `Disclosure of Interests`, corresponding author `\Envelope` marker, and verified **EXACTLY 10 pages**. |
+| **`IRIS2027_Source_Files_Yuvanesh_KS.zip`** | 149 KB | Clean 10-file LaTeX source package (`main.tex`, updated `splncs04` `main.bbl`, `references.bib`, `llncs.cls`, `splncs04.bst`, and 5 vector `.pdf` figures). |
 | **`IRIS2027_Contributor_Agreement_Yuvanesh_KS_Signed.pdf`** | 184 KB | Clean 6-page Springer Contributor Agreement, populated and signed with vector signature. |
 
 ---
